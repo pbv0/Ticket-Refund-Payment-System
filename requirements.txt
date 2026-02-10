@@ -9,3 +9,6 @@ pandas
 openai
 databricks-sql-connector[pyarrow]>=4.2.4
 databricks-sdk>=0.57
+python-dotenv
+reflex-enterprise
+asgiproxy

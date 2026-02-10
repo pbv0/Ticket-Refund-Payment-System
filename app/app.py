@@ -1,4 +1,5 @@
 import reflex as rx
+import reflex_enterprise as rxe
 from app.components.sidebar import sidebar
 from app.components.stats_cards import stats_grid
 from app.components.charts import (
@@ -111,7 +112,7 @@ def chat_page() -> rx.Component:
     )
 
 
-app = rx.App(
+app = rxe.App(
     theme=rx.theme(appearance="light"),
     head_components=[
         rx.el.link(rel="preconnect", href="https://fonts.googleapis.com"),
