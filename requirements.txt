@@ -1,7 +1,7 @@
 psycopg[binary]>=3.1.8
 geoalchemy2>=0.18
 asgiproxy>=0.2
-reflex==0.8.24.post1
+reflex==0.8.26
 psycopg-pool
 databricks-sqlalchemy>=2
 pandas

@@ -4,6 +4,7 @@ command: [
   "--env",
   "prod",
   "--single-port",
+  "--frontend-port",
   "$DATABRICKS_APP_PORT"
 ]
 
