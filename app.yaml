@@ -11,10 +11,10 @@ env:
   - name: "HOME"
     value: "/tmp/reflex"
   - name: "DATABRICKS_WAREHOUSE_ID"
-    value: "<your-sql-warehouse-id>"
+    value: "e8cd4b9d069bc806"
   - name: "DATABRICKS_CATALOG"
-    value: "<your-catalog-name>"
+    value: "practice_tom"
   - name: "DATABRICKS_SCHEMA"
-    value: "<your-schema-name>"
+    value: "public"
   - name: "REFLEX_SHOW_BUILT_WITH_REFLEX"
     value: 0
