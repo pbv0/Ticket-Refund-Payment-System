@@ -1,6 +1,5 @@
 psycopg[binary]>=3.1.8
 geoalchemy2>=0.18
-reflex-enterprise>=0.2
 asgiproxy>=0.2
 reflex==0.8.24.post1
 psycopg-pool
@@ -10,5 +9,3 @@ openai
 databricks-sql-connector[pyarrow]>=4.2.4
 databricks-sdk>=0.57
 python-dotenv
-reflex-enterprise
-asgiproxy

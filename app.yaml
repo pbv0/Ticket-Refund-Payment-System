@@ -3,15 +3,13 @@ command: [
   "run",
   "--env",
   "prod",
-  "--backend-port",
+  "--single-port",
   "$DATABRICKS_APP_PORT"
 ]
 
 env:
   - name: "HOME"
     value: "/tmp/reflex"
-  - name: "REFLEX_ACCESS_TOKEN"
-    value: "<your-token-here>"
   - name: "DATABRICKS_WAREHOUSE_ID"
     value: "<your-sql-warehouse-id>"
   - name: "DATABRICKS_CATALOG"
