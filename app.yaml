@@ -3,8 +3,7 @@ command: [
   "run",
   "--env",
   "prod",
-  "--single-port",
-  "$DATABRICKS_APP_PORT"
+  "--single-port"
 ]
 
 env:
