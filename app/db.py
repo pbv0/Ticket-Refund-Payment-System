@@ -49,6 +49,7 @@ def _configure_connection(conn: psycopg.Connection) -> None:
     without requiring ``CREATE`` privileges on the ``public`` schema.
     """
     conn.execute(f"SET search_path TO {APP_SCHEMA}, public")
+    conn.commit()
 
 
 def get_pool() -> ConnectionPool:
