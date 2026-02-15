@@ -20,36 +20,29 @@ This repository demonstrates how to build custom Databricks Apps applications us
 
 ## Local Development
 
-1. Create a virtual environment and install dependencies:
-
-   ```bash
-   uv venv --python 3.11
-   source .venv/bin/activate
-   uv pip install -r requirements.txt
-   ```
-
-2. Authenticate with your Databricks workspace using OAuth U2M via the CLI:
+1. Authenticate with your Databricks workspace using OAuth U2M via the CLI:
 
    ```bash
    databricks auth login --host https://<your-workspace>.cloud.databricks.com
    ```
 
-3. Set the required PostgreSQL environment variables to connect to your Lakebase instance:
+2. Create a `.env` file in the project root with the required PostgreSQL variables for your Lakebase instance:
 
-   ```bash
-   export PGHOST="<your-lakebase-host>"
-   export PGDATABASE="databricks_postgres"
-   export PGPORT="5432"
-   export PGUSER="<your-databricks-username>"
+   ```
+   PGHOST=<your-lakebase-host>
+   PGDATABASE=databricks_postgres
+   PGPORT=5432
    ```
 
-4. Start the app:
+   `PGUSER` is resolved automatically from your Databricks identity. The `.env` file is loaded at startup and is already included in `.gitignore`.
+
+3. Start the app:
 
    ```bash
-   reflex run
+   uv run --python 3.11 --with-requirements requirements.txt reflex run
    ```
 
-   The required database tables (`help_ticket`, `refund_requests`, `stripe_payments`) are created automatically on first startup if they don't already exist.
+   This installs dependencies and starts the app in one step. The required database tables (`help_ticket`, `refund_requests`, `stripe_payments`) are created automatically on first startup if they don't already exist.
 
 ## Deploy to Databricks Apps
 
