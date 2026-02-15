@@ -9,7 +9,7 @@
 ### Chat LLM Interface
 ![](./assets/crud_app_chat.png)
 
-This repository demonstrates how to build custom Databricks Apps applications using [Reflex](https://reflex.dev/), integrating Databricks' Lakebase (OLTP database) and querying Foundation Model LLM APIs on Databricks, allowing users to securely add, edit and delete and run LLM queries on records stored in Databricks.
+This repository demonstrates how to build custom Databricks Apps applications using [Reflex](https://reflex.dev/), integrating [Databricks Lakebase](https://www.databricks.com/product/lakebase) (OLTP database) and querying [Foundation Model Serving](https://www.databricks.com/product/model-serving) LLM APIs on Databricks, allowing users to securely add, edit and delete and run LLM queries on records stored in Databricks.
 
 ## Prerequisites
 
