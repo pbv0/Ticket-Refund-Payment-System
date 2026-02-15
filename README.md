@@ -26,15 +26,16 @@ This repository demonstrates how to build custom Databricks Apps applications us
    databricks auth login --host https://<your-workspace>.cloud.databricks.com
    ```
 
-2. Create a `.env` file in the project root with the required PostgreSQL variables for your Lakebase instance:
+2. Create a `.env` file in the project root with the required variables for your Lakebase instance:
 
    ```
    PGHOST=<your-lakebase-host>
    PGDATABASE=databricks_postgres
    PGPORT=5432
+   LAKEBASE_INSTANCE_NAME=<your-instance-name>
    ```
 
-   `PGUSER` is resolved automatically from your Databricks identity. The `.env` file is loaded at startup and is already included in `.gitignore`.
+   `PGUSER` is resolved automatically from your Databricks identity. `LAKEBASE_INSTANCE_NAME` should match the name of your Lakebase instance as shown in the Databricks UI. The `.env` file is loaded at startup and is already included in `.gitignore`.
 
 3. Start the app:
 
@@ -64,7 +65,7 @@ This app is designed to be deployed to [Databricks Apps](https://docs.databricks
    - Click **Deploy > From Git**, then select the branch, tag, or commit to deploy
    - The app runs using the command defined in `app.yaml`
 
-   Databricks authentication and PG* environment variables are handled automatically by the platform. Database tables are created on first startup.
+   Databricks authentication and PG* environment variables are handled automatically by the platform. Database tables are created on first startup. By default, the app uses `PGAPPNAME` (the app name) as the Lakebase instance name. If your instance name differs, add `LAKEBASE_INSTANCE_NAME` to the `env` section in `app.yaml`.
 
 ## Project Structure
 

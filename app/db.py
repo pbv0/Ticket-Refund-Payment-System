@@ -11,17 +11,31 @@ logger = logging.getLogger(__name__)
 _pool = None
 
 
+def _get_instance_name() -> str:
+    """Return the Lakebase instance name for credential generation.
+
+    Uses LAKEBASE_INSTANCE_NAME if set, otherwise falls back to PGAPPNAME
+    (which Databricks Apps sets to the app name). Override with
+    LAKEBASE_INSTANCE_NAME if your instance name differs from the app name.
+    """
+    name = os.environ.get("LAKEBASE_INSTANCE_NAME") or os.environ.get("PGAPPNAME")
+    if not name:
+        raise RuntimeError(
+            "Cannot determine Lakebase instance name. "
+            "Set LAKEBASE_INSTANCE_NAME in your .env file or app.yaml."
+        )
+    return name
+
+
 class RotatingTokenConnection(psycopg.Connection):
     """psycopg Connection subclass that fetches a fresh Databricks token on each connect."""
 
     @classmethod
     def connect(cls, conninfo: str = "", **kwargs):
         w = WorkspaceClient()
-        host = os.environ.get("PGHOST", "")
-        instance_name = host.split(".")[0]
         kwargs["password"] = w.database.generate_database_credential(
             request_id=str(uuid.uuid4()),
-            instance_names=[instance_name],
+            instance_names=[_get_instance_name()],
         ).token
         kwargs.setdefault("sslmode", "require")
         return super().connect(conninfo, **kwargs)
