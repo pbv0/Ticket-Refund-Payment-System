@@ -14,6 +14,9 @@ from app.components.tickets_view import tickets_view
 from app.components.refunds_view import refunds_view
 from app.components.payments_view import payments_view
 from app.components.chat_view import chat_view
+from app.db import ensure_schema
+
+ensure_schema()
 
 
 def dashboard_content() -> rx.Component:
