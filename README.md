@@ -32,7 +32,7 @@ This repository demonstrates how to build a custom [Databricks Apps](https://doc
    cp .env.example .env
    ```
 
-   Edit `.env` with the connection details for your Lakebase instance. See `.env.example` for a description of each variable. `PGUSER` is resolved automatically from your Databricks identity. The `.env` file is loaded at startup and is already included in `.gitignore`.
+   Edit `.env` with the connection details for your Lakebase instance. See `.env.example` for a description of each variable. `PGUSER` is resolved automatically from your Databricks identity. If you have multiple Databricks CLI profiles, set `DATABRICKS_CONFIG_PROFILE` to the profile name you want to use. The `.env` file is loaded at startup and is already included in `.gitignore`.
 
 3. Start the app:
 

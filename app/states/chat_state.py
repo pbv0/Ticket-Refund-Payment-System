@@ -1,5 +1,6 @@
 import reflex as rx
 import os
+from typing import Any
 from openai import AsyncOpenAI
 from databricks.sdk import WorkspaceClient
 from app.db import fetch_all
@@ -33,7 +34,7 @@ class ChatState(rx.State):
         ]
 
     @rx.event(background=True)
-    async def send_message(self, form_data: dict[str, str]):
+    async def send_message(self, form_data: dict[str, Any]):
         user_msg = form_data.get("message_input", "").strip()
         if not user_msg:
             return
