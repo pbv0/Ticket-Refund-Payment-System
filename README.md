@@ -1,4 +1,4 @@
-# Conversational Agent Reflex App
+# Customer Support Dashboard with AI Chat — Databricks Apps + Reflex
 
 ### Main Dashboard
 ![](./assets/crud_app_dashboard.png)
