@@ -17,8 +17,11 @@ class RotatingTokenConnection(psycopg.Connection):
     @classmethod
     def connect(cls, conninfo: str = "", **kwargs):
         w = WorkspaceClient()
+        host = os.environ.get("PGHOST", "")
+        instance_name = host.split(".")[0]
         kwargs["password"] = w.database.generate_database_credential(
             request_id=str(uuid.uuid4()),
+            instance_names=[instance_name],
         ).token
         kwargs.setdefault("sslmode", "require")
         return super().connect(conninfo, **kwargs)
@@ -39,6 +42,9 @@ def get_pool() -> ConnectionPool:
                 "Add a Lakebase database instance as a resource to your Databricks App. "
                 "See: https://docs.databricks.com/aws/en/dev-tools/databricks-apps/lakebase"
             )
+        if not os.environ.get("PGUSER"):
+            w = WorkspaceClient()
+            os.environ["PGUSER"] = w.current_user.me().user_name
         _pool = ConnectionPool(
             conninfo="",
             connection_class=RotatingTokenConnection,
