@@ -1,4 +1,4 @@
-# Conversational Agent App
+# Conversational Agent Reflex App
 
 ### Main Dashboard
 ![](./assets/crud_app_dashboard.png)
@@ -9,20 +9,23 @@
 ### Chat LLM Interface
 ![](./assets/crud_app_chat.png)
 
-This repository demonstrates how to build custom Databricks Apps applications integrating Databricks' Lakebase (OLTP database) and querying Foundation Model LLM APIs on Databricks, allowing users to securely add, edit and delete and run LLM queries on records stored in Databricks.
+This repository demonstrates how to build custom Databricks Apps applications using [Reflex](https://reflex.dev/), integrating Databricks' Lakebase (OLTP database) and querying Foundation Model LLM APIs on Databricks, allowing users to securely add, edit and delete and run LLM queries on records stored in Databricks.
 
 ## Prerequisites
 
-- A Databricks workspace with a [Lakebase database instance](https://docs.databricks.com/aws/en/database/lakebase/)
+- A Databricks workspace with a [Lakebase database instance](https://docs.databricks.com/aws/en/oltp/instances/about)
 - [Databricks CLI](https://docs.databricks.com/aws/en/dev-tools/cli/install) installed and authenticated
+- [uv](https://docs.astral.sh/uv/getting-started/installation/) (recommended) or pip
 - Python 3.11+
 
 ## Local Development
 
-1. Install dependencies:
+1. Create a virtual environment and install dependencies:
 
    ```bash
-   pip install -r requirements.txt
+   uv venv --python 3.11
+   source .venv/bin/activate
+   uv pip install -r requirements.txt
    ```
 
 2. Authenticate with your Databricks workspace using OAuth U2M via the CLI:
@@ -50,16 +53,13 @@ This repository demonstrates how to build custom Databricks Apps applications in
 
 ## Deploy to Databricks Apps
 
-This app is designed to be deployed to [Databricks Apps](https://docs.databricks.com/aws/en/dev-tools/databricks-apps/) directly from a Git repository.
+This app is designed to be deployed to [Databricks Apps](https://docs.databricks.com/aws/en/dev-tools/databricks-apps/) directly from a Git repository. You can point your Databricks App to this repository directly, or fork it to customize the app and deploy from your own repo.
 
-1. **Create the app** in your Databricks workspace:
-   - Via UI: go to **Compute > Apps > Create app**
+1. **Create the app and add a Lakebase database resource**:
+   - Via UI: go to **Compute > Apps > Create app**. During app creation, add a Lakebase database resource under **App resources > Add resource > Database**. Select your database instance and database.
    - Or via CLI: `databricks apps create <your-app-name>`
-
-2. **Add a Lakebase database resource** to the app. This is required for the app to connect to the database.
-   - Go to **Compute > Apps > your app > Configure > Add resource > Database**
-   - Select your Lakebase database instance and database
-   - This automatically sets the PG* environment variables (`PGHOST`, `PGDATABASE`, `PGPORT`, `PGUSER`, `PGSSLMODE`) and grants the app's service principal `CONNECT` and `CREATE` privileges on the database
+   - For an existing app, go to **Compute > Apps > your app** and click **Edit** to add the database resource.
+   - Adding a Lakebase resource automatically sets the PG* environment variables (`PGHOST`, `PGDATABASE`, `PGPORT`, `PGUSER`, `PGSSLMODE`) and grants the app's service principal `CONNECT` and `CREATE` privileges on the database.
    - See [Add a Lakebase resource to a Databricks app](https://docs.databricks.com/aws/en/dev-tools/databricks-apps/lakebase)
 
 3. **Configure the Git repository**:
