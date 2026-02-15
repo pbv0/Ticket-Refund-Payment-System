@@ -15,8 +15,16 @@ from app.components.refunds_view import refunds_view
 from app.components.payments_view import payments_view
 from app.components.chat_view import chat_view
 from app.db import ensure_schema
+import logging
 
-ensure_schema()
+_db_error: str | None = None
+try:
+    ensure_schema()
+except Exception as e:
+    _db_error = str(e)
+    logging.error(
+        f"Database initialization failed — the app will start but data operations will fail: {e}"
+    )
 
 
 def dashboard_content() -> rx.Component:

@@ -9,7 +9,7 @@
 ### Chat LLM Interface
 ![](./assets/crud_app_chat.png)
 
-This repository demonstrates how to build custom Databricks Apps applications using [Reflex](https://reflex.dev/), integrating [Databricks Lakebase](https://www.databricks.com/product/lakebase) (OLTP database) and querying [Foundation Model Serving](https://www.databricks.com/product/model-serving) LLM APIs on Databricks, allowing users to securely add, edit and delete and run LLM queries on records stored in Databricks.
+This repository demonstrates how to build a custom [Databricks Apps](https://docs.databricks.com/aws/en/dev-tools/databricks-apps/) application using [Reflex](https://reflex.dev/). It integrates [Databricks Lakebase](https://www.databricks.com/product/lakebase) as an OLTP database and queries LLM APIs via [Foundation Model Serving](https://www.databricks.com/product/model-serving). Users can securely create, read, update, and delete support tickets, refund requests, and payment records, and use an AI chat assistant to query business data.
 
 ## Prerequisites
 
@@ -26,16 +26,13 @@ This repository demonstrates how to build custom Databricks Apps applications us
    databricks auth login --host https://<your-workspace>.cloud.databricks.com
    ```
 
-2. Create a `.env` file in the project root with the required variables for your Lakebase instance:
+2. Copy the example environment file and fill in your values:
 
-   ```
-   PGHOST=<your-lakebase-host>
-   PGDATABASE=databricks_postgres
-   PGPORT=5432
-   LAKEBASE_INSTANCE_NAME=<your-instance-name>
+   ```bash
+   cp .env.example .env
    ```
 
-   `PGUSER` is resolved automatically from your Databricks identity. `LAKEBASE_INSTANCE_NAME` should match the name of your Lakebase instance as shown in the Databricks UI. The `.env` file is loaded at startup and is already included in `.gitignore`.
+   Edit `.env` with the connection details for your Lakebase instance. See `.env.example` for a description of each variable. `PGUSER` is resolved automatically from your Databricks identity. The `.env` file is loaded at startup and is already included in `.gitignore`.
 
 3. Start the app:
 
@@ -43,7 +40,7 @@ This repository demonstrates how to build custom Databricks Apps applications us
    uv run --python 3.11 --with-requirements requirements.txt reflex run
    ```
 
-   This installs dependencies and starts the app in one step. The required database tables (`help_ticket`, `refund_requests`, `stripe_payments`) are created automatically on first startup if they don't already exist.
+   This installs dependencies and starts the app in one step. The required database tables (`help_ticket`, `refund_requests`, `stripe_payments`) are created automatically on first startup if they don't already exist, and sample seed data is inserted into empty tables so the dashboard is populated immediately.
 
 ## Deploy to Databricks Apps
 
@@ -56,12 +53,12 @@ This app is designed to be deployed to [Databricks Apps](https://docs.databricks
    - Adding a Lakebase resource automatically sets the PG* environment variables (`PGHOST`, `PGDATABASE`, `PGPORT`, `PGUSER`, `PGSSLMODE`) and grants the app's service principal `CONNECT` and `CREATE` privileges on the database.
    - See [Add a Lakebase resource to a Databricks app](https://docs.databricks.com/aws/en/dev-tools/databricks-apps/lakebase)
 
-3. **Configure the Git repository**:
+2. **Configure the Git repository**:
    - In the app configuration, enter the Git repository URL and select your Git provider
    - For private repositories, configure a Git credential for the app's service principal
    - See [Deploy a Databricks app](https://docs.databricks.com/aws/en/dev-tools/databricks-apps/deploy)
 
-4. **Deploy**:
+3. **Deploy**:
    - Click **Deploy > From Git**, then select the branch, tag, or commit to deploy
    - The app runs using the command defined in `app.yaml`
 
