@@ -25,20 +25,22 @@ This repository demonstrates how to build custom Databricks Apps applications in
    pip install -r requirements.txt
    ```
 
-2. Set the required environment variables. The app reads standard PostgreSQL variables to connect to your Lakebase instance, plus Databricks authentication:
+2. Authenticate with your Databricks workspace using OAuth U2M via the CLI:
+
+   ```bash
+   databricks auth login --host https://<your-workspace>.cloud.databricks.com
+   ```
+
+3. Set the required PostgreSQL environment variables to connect to your Lakebase instance:
 
    ```bash
    export PGHOST="<your-lakebase-host>"
    export PGDATABASE="databricks_postgres"
    export PGPORT="5432"
    export PGUSER="<your-databricks-username>"
-   export DATABRICKS_HOST="https://<your-workspace>.cloud.databricks.com"
-   export DATABRICKS_TOKEN="<your-personal-access-token>"
    ```
 
-   Alternatively, configure a [Databricks CLI profile](https://docs.databricks.com/aws/en/dev-tools/cli/profiles.html) instead of setting `DATABRICKS_HOST` and `DATABRICKS_TOKEN`.
-
-3. Start the app:
+4. Start the app:
 
    ```bash
    reflex run
