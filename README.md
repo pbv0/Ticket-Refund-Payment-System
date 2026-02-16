@@ -46,19 +46,24 @@ This repository demonstrates how to build a custom [Databricks Apps](https://doc
 
 This app is designed to be deployed to [Databricks Apps](https://docs.databricks.com/aws/en/dev-tools/databricks-apps/) directly from a Git repository. You can point your Databricks App to this repository directly, or fork it to customize the app and deploy from your own repo.
 
-1. **Create the app and add a Lakebase database resource**:
+1. **(Optional) Create a Lakebase instance** — if you don't have one yet, create a Lakebase database instance in your workspace:
+   - Via UI: go to **SQL Warehouses > Lakebase** and click **Create instance**
+   - Or via CLI: `databricks lakebase-instances create --name <instance-name>`
+   - See [Create a Lakebase instance](https://docs.databricks.com/aws/en/oltp/instances/create)
+
+2. **Create the app and add a Lakebase database resource**:
    - Via UI: go to **Compute > Apps > Create app**. During app creation, add a Lakebase database resource under **App resources > Add resource > Database**. Select your database instance and database.
    - Or via CLI: `databricks apps create <your-app-name>`
    - For an existing app, go to **Compute > Apps > your app** and click **Edit** to add the database resource.
    - Adding a Lakebase resource automatically sets the PG* environment variables (`PGHOST`, `PGDATABASE`, `PGPORT`, `PGUSER`, `PGSSLMODE`) and grants the app's service principal `CONNECT` and `CREATE` privileges on the database.
    - See [Add a Lakebase resource to a Databricks app](https://docs.databricks.com/aws/en/dev-tools/databricks-apps/lakebase)
 
-2. **Configure the Git repository**:
+3. **Configure the Git repository**:
    - In the app configuration, enter the Git repository URL and select your Git provider
    - For private repositories, configure a Git credential for the app's service principal
    - See [Deploy a Databricks app](https://docs.databricks.com/aws/en/dev-tools/databricks-apps/deploy)
 
-3. **Deploy**:
+4. **Deploy**:
    - Click **Deploy > From Git**, then select the branch, tag, or commit to deploy
    - The app runs using the command defined in `app.yaml`
 
