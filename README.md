@@ -47,9 +47,9 @@ This repository demonstrates how to build a custom [Databricks Apps](https://doc
 This app is designed to be deployed to [Databricks Apps](https://docs.databricks.com/aws/en/dev-tools/databricks-apps/) directly from a Git repository. You can point your Databricks App to this repository directly, or fork it to customize the app and deploy from your own repo.
 
 1. **(Optional) Create a Lakebase instance** — if you don't have one yet, create a Lakebase database instance in your workspace:
-   - Via UI: go to **SQL Warehouses > Lakebase** and click **Create instance**
-   - Or via CLI: `databricks lakebase-instances create --name <instance-name>`
-   - See [Create a Lakebase instance](https://docs.databricks.com/aws/en/oltp/instances/create)
+   - Via UI: click **Apps > Lakebase Postgres > Provisioned > Create database instance**
+   - Or via CLI: `databricks database create-database-instance <instance-name> --capacity CU_1`
+   - See [Create and manage a database instance](https://docs.databricks.com/aws/en/oltp/instances/create)
 
 2. **Create the app and add a Lakebase database resource**:
    - Via UI: go to **Compute > Apps > Create app**. During app creation, add a Lakebase database resource under **App resources > Add resource > Database**. Select your database instance and database.
